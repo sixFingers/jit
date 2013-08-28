@@ -1,0 +1,44 @@
+{
+  "name": "jit",
+  "description": "Git in Javascript.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/sixFingers/jit",
+  "author": {
+    "name": "Ignazio Setti",
+    "email": "ignazio.setti@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sixFingers/jit"
+  },
+  "bugs": {
+    "url": "https://github.com/sixFingers/jit/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/sixFingers/jit/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "lib/jit",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt nodeunit"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt-contrib-watch": "~0.2.0",
+    "grunt": "~0.4.1"
+  },
+  "dependencies": {
+    "commander": "*"
+  },
+  "keywords": [],
+  "preferGlobal": "true",
+  "bin": {
+    "jit" : "lib/jit.js"
+  }
+}
