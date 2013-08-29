@@ -1,6 +1,6 @@
 # jit [![Build Status](https://secure.travis-ci.org/sixFingers/jit.png?branch=master)](http://travis-ci.org/sixFingers/jit)
 
-Git in Javascript.
+A javascript port of Git for Node.js
 
 ## Getting Started
 Install the module with: `npm install jit`
@@ -20,9 +20,3 @@ _(Nothing yet)_
 ## License
 Copyright (c) 2013 Ignazio Setti
 Licensed under the MIT license.
-
-jit
-===
-
-A javascript port of Git for Node.js
-
