@@ -5,11 +5,6 @@ Git in Javascript.
 ## Getting Started
 Install the module with: `npm install jit`
 
-```javascript
-var jit = require('jit');
-jit.awesome(); // "awesome"
-```
-
 ## Documentation
 _(Coming soon)_
 
@@ -23,5 +18,11 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 _(Nothing yet)_
 
 ## License
-Copyright (c) 2013 Ignazio Setti  
+Copyright (c) 2013 Ignazio Setti
 Licensed under the MIT license.
+
+jit
+===
+
+A javascript port of Git for Node.js
+
