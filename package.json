@@ -34,7 +34,9 @@
     "grunt": "~0.4.1"
   },
   "dependencies": {
-    "commander": "*"
+    "commander": "*",
+    "sprintf": "*",
+    "fs-extra": "*"
   },
   "keywords": [],
   "preferGlobal": "true",
