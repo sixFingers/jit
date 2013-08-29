@@ -39,6 +39,7 @@
   "keywords": [],
   "preferGlobal": "true",
   "bin": {
-    "jit" : "lib/jit.js"
+    "jit" : "lib/jit.js",
+    "jit-init" : "lib/jit-init.js"
   }
 }
