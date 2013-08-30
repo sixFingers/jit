@@ -17,15 +17,32 @@ var jit_folder = 'jit-repo';
 *
 **/
 
-exports.testShaKey = function(test) {
-  var content = 'hello boys, how are you?',
-      stoud = '';
+exports.testShaKeyFromStdin = function(test) {
+  var content = 'hello boys, how are you?';
 
-  exec('echo "' + content + '" | git hash-object --stdin', function(err, stoud, stderr) {
-    Blob.hash_object({content: content+"\n"}, function(err, blob) {
+  exec('echo "' + content + '" | git hash-object --stdin', function(err, stdout, stderr) {
+    var blob = new Blob();
+    blob.hash_object({content: content + '\n'}, function(err) {
       test.equal(err, undefined);
-      test.equal(blob.key, stoud.replace(/[\n]/g, ''));
+      test.equal(blob.key, stdout.replace(/[\n]/g, ''));
       test.done();
+    });
+  });
+}
+
+exports.testShaKeyFromFile = function(test) {
+  var content = 'hello boys, how are you?';
+
+  exec('touch gist && echo "' + content + '" > gist && git hash-object gist', function(err, stdout, stderr) {
+    var file_path = path.resolve('gist');
+    fs.readFile(file_path, 'utf8', function(err, data) {
+      var blob = new Blob();
+      blob.hash_object({content: data}, function(err) {
+        test.equal(err, undefined);
+        test.equal(blob.key, stdout.replace(/[\n]/g, ''));
+        fs.removeSync('gist');
+        test.done();
+      });
     });
   });
 }
