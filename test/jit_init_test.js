@@ -7,7 +7,7 @@ var fs = require('fs-extra'),
     storage = require('../lib/storage/filesystem');
 
 var git_folder = 'git-repo';
-var jit_folder = 'jit-repo/.git';
+var jit_folder = 'jit-repo';
 
 /**
 *
@@ -19,7 +19,7 @@ exports.testDefaultDirectoryTree = function(test) {
   exec('git init ' + git_folder, continueTest);
 
   function continueTest() {
-    var repo = new Repo(jit_folder, storage);
+    var repo = new Repo(jit_folder + '/.git', storage);
     repo.init(function(err) {
       var git_tree = fs.readdirSync(git_folder + '/.git');
       var jit_tree = fs.readdirSync(repo.root_dir);

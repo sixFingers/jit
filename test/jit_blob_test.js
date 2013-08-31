@@ -3,7 +3,9 @@
 var fs = require('fs-extra'),
     path = require('path'),
     exec = require('child_process').exec,
-    Blob = require('../lib/common/blob');
+    Repo = require('../lib/common/repo'),
+    Blob = require('../lib/common/blob'),
+    storage = require('../lib/storage/filesystem');
 
 var git_folder = 'git-repo';
 var jit_folder = 'jit-repo';
@@ -21,12 +23,9 @@ exports.testShaKeyFromStdin = function(test) {
   var content = 'hello boys, how are you?';
 
   exec('echo "' + content + '" | git hash-object --stdin', function(err, stdout, stderr) {
-    var blob = new Blob();
-    blob.hash_object({content: content + '\n'}, function(err) {
-      test.equal(err, undefined);
-      test.equal(blob.key, stdout.replace(/[\n]/g, ''));
-      test.done();
-    });
+    var blob = new Blob(content + '\n');
+    test.equal(blob.key, stdout.replace(/[\n]/g, ''));
+    test.done();
   });
 }
 
@@ -36,12 +35,14 @@ exports.testShaKeyFromFile = function(test) {
   exec('touch gist && echo "' + content + '" > gist && git hash-object gist', function(err, stdout, stderr) {
     var file_path = path.resolve('gist');
     fs.readFile(file_path, 'utf8', function(err, data) {
-      var blob = new Blob();
-      blob.hash_object({content: data}, function(err) {
-        test.equal(err, undefined);
-        test.equal(blob.key, stdout.replace(/[\n]/g, ''));
-        fs.removeSync('gist');
-        test.done();
+      var repo = new Repo(jit_folder + '/.git', storage);
+      repo.init(function(err) {
+        repo.write_blob({content: data}, function(err, blob) {
+          test.equal(err, null);
+          test.equal(blob.key, stdout.replace(/[\n]/g, ''));
+          fs.removeSync('gist');
+          test.done();
+        });
       });
     });
   });
