@@ -45,6 +45,7 @@
   "bin": {
     "jit" : "lib/jit.js",
     "jit-init" : "lib/jit-init.js",
-    "jit-hash-object" : "lib/jit-hash-object.js"
+    "jit-hash-object" : "lib/jit-hash-object.js",
+    "jit-cat-file" : "lib/jit-cat-file.js"
   }
 }
