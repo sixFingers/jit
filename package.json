@@ -37,7 +37,8 @@
     "underscore": "*",
     "commander": "*",
     "sprintf": "*",
-    "fs-extra": "*"
+    "fs-extra": "*",
+    "zlib": ""
   },
   "keywords": [],
   "preferGlobal": "true",
