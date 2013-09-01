@@ -31,11 +31,12 @@ exports.testCatFileContent = function(test) {
   function continueTest(err, stdout, stderr) {
     var repo = new Repo(jit_folder + '/.git', storage);
     repo.init(function(err) {
-      repo.write_blob({content: content + '\n'}, function(err, blob) {
+      repo.write_object({content: content + '\n'}, function(err, object) {
         test.equal(err, null);
-        repo.read_object(blob, function(err, blob) {
+        repo.read_object(object, function(err, object) {
           test.equal(err, null);
-          test.ok(blob.content == stdout);
+          test.ok(object.content == stdout);
+
           fs.removeSync(git_folder);
           fs.removeSync(jit_folder);
 
@@ -62,11 +63,12 @@ exports.testCatFileType = function(test) {
   function continueTest(err, stdout, stderr) {
     var repo = new Repo(jit_folder + '/.git', storage);
     repo.init(function(err) {
-      repo.write_blob({content: content + '\n'}, function(err, blob) {
+      repo.write_object({content: content + '\n'}, function(err, object) {
         test.equal(err, null);
-        repo.read_object(blob, function(err, blob) {
+        repo.read_object(object, function(err, object) {
           test.equal(err, null);
-          test.ok(blob.type == stdout.replace(/[\n]/g, ''));
+          test.ok(object.type == stdout.replace(/[\n]/g, ''));
+
           fs.removeSync(git_folder);
           fs.removeSync(jit_folder);
 
@@ -93,11 +95,12 @@ exports.testCatFileSize = function(test) {
   function continueTest(err, stdout, stderr) {
     var repo = new Repo(jit_folder + '/.git', storage);
     repo.init(function(err) {
-      repo.write_blob({content: content + '\n'}, function(err, blob) {
+      repo.write_object({content: content + '\n'}, function(err, object) {
         test.equal(err, null);
-        repo.read_object(blob, function(err, blob) {
+        repo.read_object(object, function(err, object) {
           test.equal(err, null);
-          test.ok(parseInt(blob.size) == parseInt(stdout));
+          test.ok(parseInt(object.size) == parseInt(stdout));
+
           fs.removeSync(git_folder);
           fs.removeSync(jit_folder);
 
