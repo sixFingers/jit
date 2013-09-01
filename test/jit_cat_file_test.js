@@ -45,3 +45,65 @@ exports.testCatFileContent = function(test) {
     });
   }
 }
+
+exports.testCatFileType = function(test) {
+  var content = 'hello boys, how are you?';
+
+  exec('git init ' + git_folder, createObject);
+
+  function createObject(err, stdout, stderr) {
+    exec('echo "' + content + '" | git hash-object --stdin -w', readObject);
+  };
+
+  function readObject(err, stdout, stderr) {
+    exec('git cat-file -t ' + stdout, continueTest);
+  }
+
+  function continueTest(err, stdout, stderr) {
+    var repo = new Repo(jit_folder + '/.git', storage);
+    repo.init(function(err) {
+      repo.write_blob({content: content + '\n'}, function(err, blob) {
+        test.equal(err, null);
+        repo.read_object(blob, function(err, blob) {
+          test.equal(err, null);
+          test.ok(blob.type == stdout.replace(/[\n]/g, ''));
+          fs.removeSync(git_folder);
+          fs.removeSync(jit_folder);
+
+          test.done();
+        });
+      });
+    });
+  }
+}
+
+exports.testCatFileSize = function(test) {
+  var content = 'hello boys, how are you?';
+
+  exec('git init ' + git_folder, createObject);
+
+  function createObject(err, stdout, stderr) {
+    exec('echo "' + content + '" | git hash-object --stdin -w', readObject);
+  };
+
+  function readObject(err, stdout, stderr) {
+    exec('git cat-file -s ' + stdout, continueTest);
+  }
+
+  function continueTest(err, stdout, stderr) {
+    var repo = new Repo(jit_folder + '/.git', storage);
+    repo.init(function(err) {
+      repo.write_blob({content: content + '\n'}, function(err, blob) {
+        test.equal(err, null);
+        repo.read_object(blob, function(err, blob) {
+          test.equal(err, null);
+          test.ok(parseInt(blob.size) == parseInt(stdout));
+          fs.removeSync(git_folder);
+          fs.removeSync(jit_folder);
+
+          test.done();
+        });
+      });
+    });
+  }
+}
