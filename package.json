@@ -38,7 +38,8 @@
     "commander": "*",
     "sprintf": "*",
     "fs-extra": "*",
-    "zlib": ""
+    "zlib": "",
+    "bitparser": "*"
   },
   "keywords": [],
   "preferGlobal": "true",
